@@ -8,8 +8,8 @@ func _ready():
 	bias = angle_displacement
 func _physics_process(delta):
 	turn()
-	$CollisionShape2D.rotation = direction.angle()+bias
-	$Sprite2D.rotation = direction.angle()+bias
+	$CollisionShape2D.rotation = direction.angle()#+(bias/angle_displacement)
+	$Sprite2D.rotation = direction.angle()#+(bias/angle_displacement)
 	velocity = direction*speed
 	$trail.add_point(position)
 	move_and_slide()
