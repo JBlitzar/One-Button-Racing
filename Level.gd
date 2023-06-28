@@ -28,3 +28,4 @@ func _on_player_finish_collided():
 
 func _on_count_down_countdown_ended():
 	$Player.start()
+	$TrailManager.clear()

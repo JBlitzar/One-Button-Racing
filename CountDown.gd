@@ -7,7 +7,10 @@ signal countdown_ended
 func _ready():
 	reset_countdown()
 func reset_countdown():
+	$CountdownTimer.start()
 	currentCount = maxCount
+	text = str(currentCount)
+	
 	visible = true
 
 
@@ -16,4 +19,5 @@ func _on_countdown_timer_timeout():
 	text = str(currentCount)
 	if currentCount <= 0:
 		visible = false
+		$CountdownTimer.stop()
 		emit_signal("countdown_ended")
