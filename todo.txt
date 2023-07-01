@@ -1,18 +1,9 @@
-skid marks
- -- noise texture
-screen shake + explosion effect https://www.youtube.com/watch?v=2JXR7IASSog
- -- camera positioning, don't do too much. "language?" --different shakes for different things.
 
 Dust particles for the player
 
 Audio
  -- engine, collision, skid for turn switch, music
 
-Finish line is goal
-
-Main menu, level loading system, countdown
-
-Fail state: Collision with wall
 
 Crowd around arena? 
 

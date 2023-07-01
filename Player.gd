@@ -19,15 +19,21 @@ signal switched_direction
 var going = false
 func start():
 	going = true
+	position = start_pos
+	rotation = start_rot
+	direction = Vector2(1,0)
 func _ready():
 	bias = angle_displacement
 	start_pos = position
 	start_rot = rotation
+	print(start_rot)
 func on_collide():
 	emit_signal("collided")
 	position = start_pos
-	rotation = start_rot
+	$CollisionShape2D.rotation = start_rot
+	$Sprite2D.rotation = start_rot
 	going = false
+	$Crash.play()
 func _physics_process(delta):
 	frameCount += 1
 	if going:
@@ -62,6 +68,7 @@ func turn():
 func switch_direction():
 	bias *= -1
 	switched_direction.emit()
+	$Skid.play()
 func _input(event):
 	if event.is_action_pressed("button"):
 		switch_direction()

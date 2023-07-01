@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx7g44k0biiud"]
+[gd_scene load_steps=7 format=3 uid="uid://bx7g44k0biiud"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_0c3xc"]
 [ext_resource type="PackedScene" uid="uid://e85ptd8p0ofu" path="res://Level.tscn" id="2_ts7kf"]
+[ext_resource type="AudioStream" uid="uid://cl8hcr2u7r1ri" path="res://2012_november_fakeAwake04 back to A minor.wav" id="3_iiw4v"]
+[ext_resource type="AudioStream" uid="uid://cly33dh7niqm5" path="res://level.wav" id="4_uy8wu"]
+[ext_resource type="AudioStream" uid="uid://dyelsjc4n422u" path="res://Won!.wav" id="5_v7u4x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c3vh2"]
 font_size = 96
@@ -46,5 +49,15 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(5, 5)
 text = "Play!"
+
+[node name="Theme" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_iiw4v")
+autoplay = true
+
+[node name="Level" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_uy8wu")
+
+[node name="Win" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_v7u4x")
 
 [connection signal="pressed" from="UI/Play" to="." method="_on_play_pressed"]
