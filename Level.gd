@@ -1,6 +1,7 @@
 extends Node
 signal player_win
 signal player_fail
+signal back
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -14,7 +15,7 @@ func _process(delta):
 func _on_player_collided():
 	$Camera.add_trauma(0.12)
 	emit_signal("player_fail")
-	$Camera/UI/CountDown.reset_countdown()
+	$CanvasLayer/UI/CountDown.reset_countdown()
 	
 
 
@@ -29,3 +30,7 @@ func _on_player_finish_collided():
 func _on_count_down_countdown_ended():
 	$Player.start()
 	$TrailManager.clear()
+
+
+func _on_back_pressed():
+	emit_signal("back")

@@ -3,7 +3,9 @@ extends Node
 @export var scenes:Array[PackedScene]
 var next_scene_index: int = 0
 var instance
-
+func _ready():
+	pass
+	#$Theme.loop = true
 func handle_player_fail():
 	pass
 func reset_music():
@@ -34,9 +36,18 @@ func instantiate_next_scene():
 	add_child(instance)
 	instance.player_fail.connect(handle_player_fail)
 	instance.player_win.connect(handle_player_win)
+	instance.back.connect(handle_back)
 	next_scene_index += 1
 
 func _on_play_pressed():
 	$UI.hide()
 	instantiate_next_scene()
+	
+
+
+func _on_quit_pressed():
+	get_tree().quit(28)
+func handle_back():
+	$UI.show()
+	remove_child(instance)
 	

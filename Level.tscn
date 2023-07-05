@@ -1,11 +1,56 @@
-[gd_scene load_steps=13 format=3 uid="uid://e85ptd8p0ofu"]
+[gd_scene load_steps=18 format=3 uid="uid://e85ptd8p0ofu"]
 
 [ext_resource type="Script" path="res://Level.gd" id="1_a7aer"]
 [ext_resource type="PackedScene" uid="uid://dp8tvxeg6al1n" path="res://Player.tscn" id="1_w4gwn"]
+[ext_resource type="Texture2D" uid="uid://bp863x36j1kfr" path="res://asphalt_1.png" id="2_7huoh"]
 [ext_resource type="Texture2D" uid="uid://brju7qgljhsm4" path="res://atlas.png" id="3_45tgi"]
+[ext_resource type="Script" path="res://Background.gd" id="3_88xgr"]
 [ext_resource type="Script" path="res://TrailManager.gd" id="3_emgq0"]
 [ext_resource type="Script" path="res://Camera.gd" id="5_emkoc"]
 [ext_resource type="Script" path="res://CountDown.gd" id="6_iywi4"]
+[ext_resource type="Theme" uid="uid://ek67disyokgj" path="res://BaseTheme.tres" id="9_6vqfl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jduok"]
+texture = ExtResource("2_7huoh")
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/3 = 3
+0:0/3/flip_h = true
+0:0/3/flip_v = true
+1:0/next_alternative_id = 4
+1:0/0 = 0
+1:0/1 = 1
+1:0/1/flip_h = true
+1:0/2 = 2
+1:0/2/flip_v = true
+1:0/3 = 3
+1:0/3/flip_h = true
+1:0/3/flip_v = true
+0:1/next_alternative_id = 4
+0:1/0 = 0
+0:1/1 = 1
+0:1/1/flip_h = true
+0:1/2 = 2
+0:1/2/flip_v = true
+0:1/3 = 3
+0:1/3/flip_h = true
+0:1/3/flip_v = true
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/1 = 1
+1:1/1/flip_h = true
+1:1/2 = 2
+1:1/2/flip_v = true
+1:1/3 = 3
+1:1/3/flip_h = true
+1:1/3/flip_v = true
+
+[sub_resource type="TileSet" id="TileSet_bh60e"]
+sources/0 = SubResource("TileSetAtlasSource_jduok")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_did27"]
 fractal_gain = 0.1
@@ -43,6 +88,13 @@ font_size = 96
 [node name="Level" type="Node"]
 script = ExtResource("1_a7aer")
 
+[node name="Background" type="TileMap" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_bh60e")
+format = 2
+script = ExtResource("3_88xgr")
+size = 150
+
 [node name="TrailManager" type="Node" parent="."]
 script = ExtResource("3_emgq0")
 
@@ -69,11 +121,9 @@ position = Vector2(165, 419)
 collision_mask = 3
 trail_manager = NodePath("../TrailManager")
 
-[node name="Camera" type="Camera2D" parent="."]
-script = ExtResource("5_emkoc")
-target = NodePath("../Player")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="UI" type="Control" parent="Camera"]
+[node name="UI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,17 +131,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CountDown" type="Label" parent="Camera/UI"]
+[node name="Back" type="Button" parent="CanvasLayer/UI"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+offset_right = 80.0
+grow_vertical = 0
+theme = ExtResource("9_6vqfl")
+text = "<--"
+
+[node name="CountDown" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.396
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -27.5
-offset_top = -189.0
-offset_right = 27.5
-offset_bottom = -54.0
+anchor_bottom = 0.396
+offset_left = -27.0
+offset_top = -97.608
+offset_right = 28.0
+offset_bottom = 37.392
 grow_horizontal = 2
 grow_vertical = 2
 text = "3"
@@ -99,11 +160,16 @@ label_settings = SubResource("LabelSettings_6bpmv")
 horizontal_alignment = 1
 script = ExtResource("6_iywi4")
 
-[node name="CountdownTimer" type="Timer" parent="Camera/UI/CountDown"]
+[node name="CountdownTimer" type="Timer" parent="CanvasLayer/UI/CountDown"]
 autostart = true
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("5_emkoc")
+target = NodePath("../Player")
 
 [connection signal="collided" from="Player" to="." method="_on_player_collided"]
 [connection signal="finish_collided" from="Player" to="." method="_on_player_finish_collided"]
 [connection signal="switched_direction" from="Player" to="." method="_on_player_switched_direction"]
-[connection signal="countdown_ended" from="Camera/UI/CountDown" to="." method="_on_count_down_countdown_ended"]
-[connection signal="timeout" from="Camera/UI/CountDown/CountdownTimer" to="Camera/UI/CountDown" method="_on_countdown_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/UI/Back" to="." method="_on_back_pressed"]
+[connection signal="countdown_ended" from="CanvasLayer/UI/CountDown" to="." method="_on_count_down_countdown_ended"]
+[connection signal="timeout" from="CanvasLayer/UI/CountDown/CountdownTimer" to="CanvasLayer/UI/CountDown" method="_on_countdown_timer_timeout"]

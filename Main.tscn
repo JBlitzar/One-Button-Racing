@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx7g44k0biiud"]
+[gd_scene load_steps=8 format=3 uid="uid://bx7g44k0biiud"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_0c3xc"]
 [ext_resource type="PackedScene" uid="uid://e85ptd8p0ofu" path="res://Level.tscn" id="2_ts7kf"]
+[ext_resource type="Theme" uid="uid://ek67disyokgj" path="res://BaseTheme.tres" id="3_50bqp"]
 [ext_resource type="AudioStream" uid="uid://cl8hcr2u7r1ri" path="res://2012_november_fakeAwake04 back to A minor.wav" id="3_iiw4v"]
 [ext_resource type="AudioStream" uid="uid://cly33dh7niqm5" path="res://level.wav" id="4_uy8wu"]
 [ext_resource type="AudioStream" uid="uid://dyelsjc4n422u" path="res://Won!.wav" id="5_v7u4x"]
@@ -34,6 +35,17 @@ grow_horizontal = 2
 text = "One Button Drift"
 label_settings = SubResource("LabelSettings_c3vh2")
 
+[node name="Quit" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_right = 8.0
+grow_vertical = 0
+theme = ExtResource("3_50bqp")
+text = "X"
+
 [node name="Play" type="Button" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
@@ -41,18 +53,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -109.0
-offset_top = -79.0
-offset_right = -64.0
-offset_bottom = -48.0
+offset_left = -73.0
+offset_top = -45.5
+offset_right = 73.0
+offset_bottom = 45.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(5, 5)
+theme = ExtResource("3_50bqp")
 text = "Play!"
 
 [node name="Theme" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_iiw4v")
-autoplay = true
 
 [node name="Level" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_uy8wu")
@@ -60,4 +71,5 @@ stream = ExtResource("4_uy8wu")
 [node name="Win" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_v7u4x")
 
+[connection signal="pressed" from="UI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/Play" to="." method="_on_play_pressed"]
