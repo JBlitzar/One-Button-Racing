@@ -1,0 +1,175 @@
+[gd_scene load_steps=18 format=3 uid="uid://qv4hnr2yamay"]
+
+[ext_resource type="Script" path="res://Level.gd" id="1_f46y7"]
+[ext_resource type="Texture2D" uid="uid://bp863x36j1kfr" path="res://asphalt_1.png" id="2_8osyb"]
+[ext_resource type="Script" path="res://Background.gd" id="3_i6kfd"]
+[ext_resource type="Script" path="res://TrailManager.gd" id="4_4ap8f"]
+[ext_resource type="Texture2D" uid="uid://brju7qgljhsm4" path="res://atlas.png" id="5_psb0y"]
+[ext_resource type="PackedScene" uid="uid://dp8tvxeg6al1n" path="res://Player.tscn" id="6_bf6uv"]
+[ext_resource type="Theme" uid="uid://ek67disyokgj" path="res://BaseTheme.tres" id="7_18oxt"]
+[ext_resource type="Script" path="res://CountDown.gd" id="8_npa31"]
+[ext_resource type="Script" path="res://Camera.gd" id="9_ks8dc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jduok"]
+texture = ExtResource("2_8osyb")
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/3 = 3
+0:0/3/flip_h = true
+0:0/3/flip_v = true
+1:0/next_alternative_id = 4
+1:0/0 = 0
+1:0/1 = 1
+1:0/1/flip_h = true
+1:0/2 = 2
+1:0/2/flip_v = true
+1:0/3 = 3
+1:0/3/flip_h = true
+1:0/3/flip_v = true
+0:1/next_alternative_id = 4
+0:1/0 = 0
+0:1/1 = 1
+0:1/1/flip_h = true
+0:1/2 = 2
+0:1/2/flip_v = true
+0:1/3 = 3
+0:1/3/flip_h = true
+0:1/3/flip_v = true
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/1 = 1
+1:1/1/flip_h = true
+1:1/2 = 2
+1:1/2/flip_v = true
+1:1/3 = 3
+1:1/3/flip_h = true
+1:1/3/flip_v = true
+
+[sub_resource type="TileSet" id="TileSet_bh60e"]
+sources/0 = SubResource("TileSetAtlasSource_jduok")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_did27"]
+fractal_gain = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bp07s"]
+noise = SubResource("FastNoiseLite_did27")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fcoic"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p70fj"]
+resource_name = "atlas_0"
+texture = ExtResource("5_psb0y")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_1/angular_velocity = 0.0
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-2, -8, -8, -8, -8, 8, 8, 8, 8, -8)
+
+[sub_resource type="TileSet" id="TileSet_3ejih"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_fcoic")
+physics_layer_1/collision_layer = 2
+sources/0 = SubResource("TileSetAtlasSource_p70fj")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bpmv"]
+font_size = 96
+
+[node name="Level" type="Node"]
+script = ExtResource("1_f46y7")
+
+[node name="Background" type="TileMap" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_bh60e")
+format = 2
+script = ExtResource("3_i6kfd")
+size = 150
+
+[node name="TrailManager" type="Node" parent="."]
+script = ExtResource("4_4ap8f")
+
+[node name="LeftTrail" type="Line2D" parent="TrailManager"]
+default_color = Color(0.2, 0.2, 0.2, 1)
+texture = SubResource("NoiseTexture2D_bp07s")
+texture_mode = 1
+
+[node name="RightTrail" type="Line2D" parent="TrailManager"]
+default_color = Color(0.2, 0.2, 0.2, 1)
+texture = SubResource("NoiseTexture2D_bp07s")
+texture_mode = 1
+
+[node name="OldTrails" type="Node2D" parent="TrailManager"]
+modulate = Color(1, 1, 1, 0.709804)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_3ejih")
+format = 2
+layer_0/tile_data = PackedInt32Array(1376258, 0, 0, 1376259, 0, 0, 1441795, 0, 0, 1441796, 0, 0, 1441797, 0, 0, 1507333, 0, 0, 1507334, 0, 0, 1507335, 0, 0, 1507336, 0, 0, 1507337, 0, 0, 1507338, 0, 0, 1507339, 0, 0, 1572876, 0, 0, 1572877, 0, 0, 1572878, 0, 0, 1572879, 0, 0, 1572880, 0, 0, 1572881, 0, 0, 1507345, 0, 0, 1507346, 0, 0, 1441810, 0, 0, 1376275, 0, 0, 1376276, 0, 0, 1310741, 0, 0, 1245206, 0, 0, 1245207, 0, 0, 1179671, 0, 0, 1114135, 0, 0, 1048599, 0, 0, 983063, 0, 0, 983064, 0, 0, 917528, 0, 0, 851992, 0, 0, 786456, 0, 0, 720920, 0, 0, 720921, 0, 0, 655385, 0, 0, 589849, 0, 0, 524313, 0, 0, 458776, 0, 0, 393240, 0, 0, 393239, 0, 0, 327703, 0, 0, 262167, 0, 0, 262166, 0, 0, 262165, 0, 0, 196629, 0, 0, 196628, 0, 0, 196627, 0, 0, 131091, 0, 0, 131090, 0, 0, 131089, 0, 0, 131088, 0, 0, 1376257, 0, 0, 1310721, 0, 0, 1245185, 0, 0, 1179649, 0, 0, 1114113, 0, 0, 1048577, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 786440, 0, 0, 524278, 0, 0, 524277, 0, 0, 458741, 0, 0, 393205, 0, 0, 327669, 0, 0, 262133, 0, 0, 196597, 0, 0, 131061, 0, 0, 65525, 0, 0, -11, 0, 0, -65547, 0, 0, -131083, 0, 0, -196619, 0, 0, -262155, 0, 0, -327691, 0, 0, -393227, 0, 0, -458763, 0, 0, -524298, 0, 0, -589834, 0, 0, 589813, 0, 0, 655349, 0, 0, 655350, 0, 0, 720886, 0, 0, 786422, 0, 0, 786423, 0, 0, 851959, 0, 0, 917495, 0, 0, 917496, 0, 0, 983032, 0, 0, 983033, 0, 0, 1048569, 0, 0, 1114106, 0, 0, 1114107, 0, 0, 1179643, 0, 0, 1179644, 0, 0, 1179645, 0, 0, 1245181, 0, 0, 1245182, 0, 0, 1245183, 0, 0, 1179648, 0, 0, 1245184, 0, 0, 983042, 0, 0, 917507, 0, 0, 851972, 0, 0, 131087, 0, 0, 131086, 0, 0, 131085, 0, 0, 131084, 0, 0, 131083, 0, 0, 65546, 0, 0, 65545, 0, 0, 65544, 0, 0, 65543, 0, 0, 65542, 0, 0, 6, 0, 0, 5, 0, 0, -65531, 0, 0, -131067, 0, 0, -196604, 0, 0, -262140, 0, 0, -327676, 0, 0, -393212, 0, 0, -458748, 0, 0, -524284, 0, 0, -589820, 0, 0, -655356, 0, 0, -524296, 65536, 0, -524293, 65536, 0, -524291, 65536, 0, -524289, 65536, 0, -589822, 65536, 0, -524290, 65536, 0, -524292, 65536, 0, -524294, 65536, 0, -589824, 65536, 0, -524297, 65536, 0, -524295, 65536, 0, -589823, 65536, 0, -589821, 65536, 0)
+
+[node name="Player" parent="." node_paths=PackedStringArray("trail_manager") instance=ExtResource("6_bf6uv")]
+position = Vector2(165, 289)
+collision_mask = 3
+trail_manager = NodePath("../TrailManager")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+offset_right = 80.0
+grow_vertical = 0
+theme = ExtResource("7_18oxt")
+text = "<--"
+
+[node name="CountDown" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.396
+anchor_right = 0.5
+anchor_bottom = 0.396
+offset_left = -27.0
+offset_top = -97.608
+offset_right = 28.0
+offset_bottom = 37.392
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+label_settings = SubResource("LabelSettings_6bpmv")
+horizontal_alignment = 1
+script = ExtResource("8_npa31")
+
+[node name="CountdownTimer" type="Timer" parent="CanvasLayer/UI/CountDown"]
+autostart = true
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("9_ks8dc")
+target = NodePath("../Player")
+
+[connection signal="collided" from="Player" to="." method="_on_player_collided"]
+[connection signal="finish_collided" from="Player" to="." method="_on_player_finish_collided"]
+[connection signal="switched_direction" from="Player" to="." method="_on_player_switched_direction"]
+[connection signal="pressed" from="CanvasLayer/UI/Back" to="." method="_on_back_pressed"]
+[connection signal="countdown_ended" from="CanvasLayer/UI/CountDown" to="." method="_on_count_down_countdown_ended"]
+[connection signal="timeout" from="CanvasLayer/UI/CountDown/CountdownTimer" to="CanvasLayer/UI/CountDown" method="_on_countdown_timer_timeout"]

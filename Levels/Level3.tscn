@@ -1,0 +1,175 @@
+[gd_scene load_steps=18 format=3 uid="uid://btd2rxtpspvee"]
+
+[ext_resource type="Script" path="res://Level.gd" id="1_ml27a"]
+[ext_resource type="Texture2D" uid="uid://bp863x36j1kfr" path="res://asphalt_1.png" id="2_8amac"]
+[ext_resource type="Script" path="res://Background.gd" id="3_xdsk1"]
+[ext_resource type="Script" path="res://TrailManager.gd" id="4_2gkjf"]
+[ext_resource type="Texture2D" uid="uid://brju7qgljhsm4" path="res://atlas.png" id="5_0y40q"]
+[ext_resource type="PackedScene" uid="uid://dp8tvxeg6al1n" path="res://Player.tscn" id="6_ho145"]
+[ext_resource type="Theme" uid="uid://ek67disyokgj" path="res://BaseTheme.tres" id="7_68lih"]
+[ext_resource type="Script" path="res://CountDown.gd" id="8_quu10"]
+[ext_resource type="Script" path="res://Camera.gd" id="9_k1wux"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jduok"]
+texture = ExtResource("2_8amac")
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/3 = 3
+0:0/3/flip_h = true
+0:0/3/flip_v = true
+1:0/next_alternative_id = 4
+1:0/0 = 0
+1:0/1 = 1
+1:0/1/flip_h = true
+1:0/2 = 2
+1:0/2/flip_v = true
+1:0/3 = 3
+1:0/3/flip_h = true
+1:0/3/flip_v = true
+0:1/next_alternative_id = 4
+0:1/0 = 0
+0:1/1 = 1
+0:1/1/flip_h = true
+0:1/2 = 2
+0:1/2/flip_v = true
+0:1/3 = 3
+0:1/3/flip_h = true
+0:1/3/flip_v = true
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/1 = 1
+1:1/1/flip_h = true
+1:1/2 = 2
+1:1/2/flip_v = true
+1:1/3 = 3
+1:1/3/flip_h = true
+1:1/3/flip_v = true
+
+[sub_resource type="TileSet" id="TileSet_bh60e"]
+sources/0 = SubResource("TileSetAtlasSource_jduok")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_did27"]
+fractal_gain = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bp07s"]
+noise = SubResource("FastNoiseLite_did27")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fcoic"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p70fj"]
+resource_name = "atlas_0"
+texture = ExtResource("5_0y40q")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_1/angular_velocity = 0.0
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-2, -8, -8, -8, -8, 8, 8, 8, 8, -8)
+
+[sub_resource type="TileSet" id="TileSet_3ejih"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_fcoic")
+physics_layer_1/collision_layer = 2
+sources/0 = SubResource("TileSetAtlasSource_p70fj")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bpmv"]
+font_size = 96
+
+[node name="Level" type="Node"]
+script = ExtResource("1_ml27a")
+
+[node name="Background" type="TileMap" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_bh60e")
+format = 2
+script = ExtResource("3_xdsk1")
+size = 150
+
+[node name="TrailManager" type="Node" parent="."]
+script = ExtResource("4_2gkjf")
+
+[node name="LeftTrail" type="Line2D" parent="TrailManager"]
+default_color = Color(0.2, 0.2, 0.2, 1)
+texture = SubResource("NoiseTexture2D_bp07s")
+texture_mode = 1
+
+[node name="RightTrail" type="Line2D" parent="TrailManager"]
+default_color = Color(0.2, 0.2, 0.2, 1)
+texture = SubResource("NoiseTexture2D_bp07s")
+texture_mode = 1
+
+[node name="OldTrails" type="Node2D" parent="TrailManager"]
+modulate = Color(1, 1, 1, 0.709804)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_3ejih")
+format = 2
+layer_0/tile_data = PackedInt32Array(1507328, 0, 0, 1507329, 0, 0, 1507330, 0, 0, 1507331, 0, 0, 1507332, 0, 0, 1507333, 0, 0, 1507334, 0, 0, 1507335, 0, 0, 1507336, 0, 0, 1507337, 0, 0, 1507338, 0, 0, 1507339, 0, 0, 1507340, 0, 0, 1507341, 0, 0, 1507342, 0, 0, 1507343, 0, 0, 1507344, 0, 0, 1507345, 0, 0, 1507346, 0, 0, 1507347, 0, 0, 1507348, 0, 0, 1507349, 0, 0, 1507350, 0, 0, 1507351, 0, 0, 1507352, 0, 0, 1507353, 0, 0, 1507354, 0, 0, 1507355, 0, 0, 1507356, 0, 0, 1507357, 0, 0, 1507358, 0, 0, 1507359, 0, 0, 1507360, 0, 0, 1507361, 0, 0, 1507362, 0, 0, 1507363, 0, 0, 1507364, 0, 0, 1507365, 0, 0, 1507366, 0, 0, 1507367, 0, 0, 1507368, 0, 0, 1507369, 0, 0, 1507370, 0, 0, 1507371, 0, 0, 1507372, 0, 0, 1507373, 0, 0, 1507374, 0, 0, 1507375, 0, 0, 1507376, 0, 0, 1507377, 0, 0, 1507378, 0, 0, 1507379, 0, 0, 1507380, 0, 0, 1507381, 0, 0, 1507382, 0, 0, 1507383, 0, 0, 1507384, 0, 0, 1507385, 0, 0, 1507386, 0, 0, 1507387, 0, 0, 1507388, 0, 0, 1507389, 0, 0, 1507390, 0, 0, 1507391, 0, 0, 1507392, 0, 0, 1507393, 0, 0, 1441792, 0, 0, 1376256, 0, 0, 1310720, 0, 0, 1245184, 0, 0, 1179648, 0, 0, 1114112, 0, 0, 1048576, 0, 0, 983040, 0, 0, 917504, 0, 0, 851968, 0, 0, 786432, 0, 0, 786497, 65536, 0, 852033, 65536, 0, 917569, 65536, 0, 983105, 65536, 0, 1048641, 65536, 0, 1114177, 65536, 0, 1179713, 65536, 0, 1245249, 65536, 0, 1310785, 65536, 0, 1376321, 65536, 0, 1441857, 65536, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 0, 0, 327701, 0, 0, 327702, 0, 0, 327703, 0, 0, 327704, 0, 0, 327705, 0, 0, 327706, 0, 0, 327707, 0, 0, 327708, 0, 0, 327709, 0, 0, 327710, 0, 0, 327711, 0, 0, 327712, 0, 0, 327713, 0, 0, 327714, 0, 0, 327715, 0, 0, 327716, 0, 0, 327717, 0, 0, 327718, 0, 0, 327719, 0, 0, 327720, 0, 0, 327721, 0, 0, 327722, 0, 0, 327723, 0, 0, 327724, 0, 0, 327725, 0, 0, 327726, 0, 0, 327727, 0, 0, 327728, 0, 0, 327729, 0, 0, 327730, 0, 0, 327731, 0, 0, 327732, 0, 0, 327733, 0, 0, 327734, 0, 0, 327735, 0, 0, 327736, 0, 0, 327737, 0, 0, 327738, 0, 0, 327739, 0, 0, 327740, 0, 0, 327741, 0, 0, 327742, 0, 0, 327743, 0, 0, 327744, 0, 0, 327745, 0, 0, 393216, 0, 0, 458752, 0, 0, 524288, 0, 0, 589824, 0, 0, 655360, 0, 0, 720896, 0, 0, 393281, 0, 0, 458817, 0, 0, 524353, 0, 0, 589889, 0, 0, 655425, 0, 0, 720961, 0, 0)
+
+[node name="Player" parent="." node_paths=PackedStringArray("trail_manager") instance=ExtResource("6_ho145")]
+position = Vector2(165, 289)
+collision_mask = 3
+trail_manager = NodePath("../TrailManager")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+offset_right = 80.0
+grow_vertical = 0
+theme = ExtResource("7_68lih")
+text = "<--"
+
+[node name="CountDown" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.396
+anchor_right = 0.5
+anchor_bottom = 0.396
+offset_left = -27.0
+offset_top = -97.608
+offset_right = 28.0
+offset_bottom = 37.392
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+label_settings = SubResource("LabelSettings_6bpmv")
+horizontal_alignment = 1
+script = ExtResource("8_quu10")
+
+[node name="CountdownTimer" type="Timer" parent="CanvasLayer/UI/CountDown"]
+autostart = true
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("9_k1wux")
+target = NodePath("../Player")
+
+[connection signal="collided" from="Player" to="." method="_on_player_collided"]
+[connection signal="finish_collided" from="Player" to="." method="_on_player_finish_collided"]
+[connection signal="switched_direction" from="Player" to="." method="_on_player_switched_direction"]
+[connection signal="pressed" from="CanvasLayer/UI/Back" to="." method="_on_back_pressed"]
+[connection signal="countdown_ended" from="CanvasLayer/UI/CountDown" to="." method="_on_count_down_countdown_ended"]
+[connection signal="timeout" from="CanvasLayer/UI/CountDown/CountdownTimer" to="CanvasLayer/UI/CountDown" method="_on_countdown_timer_timeout"]
