@@ -1,18 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://bx7g44k0biiud"]
+[gd_scene load_steps=16 format=3 uid="uid://bx7g44k0biiud"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_0c3xc"]
-[ext_resource type="PackedScene" uid="uid://e85ptd8p0ofu" path="res://Level.tscn" id="2_ts7kf"]
+[ext_resource type="PackedScene" uid="uid://dq1kvl5q0ap22" path="res://Levels/Level1.tscn" id="2_1avga"]
 [ext_resource type="Theme" uid="uid://ek67disyokgj" path="res://BaseTheme.tres" id="3_50bqp"]
 [ext_resource type="AudioStream" uid="uid://cl8hcr2u7r1ri" path="res://2012_november_fakeAwake04 back to A minor.wav" id="3_iiw4v"]
+[ext_resource type="PackedScene" uid="uid://qww50n1sd6ox" path="res://Levels/Level2.tscn" id="3_k1p0b"]
+[ext_resource type="PackedScene" uid="uid://btd2rxtpspvee" path="res://Levels/Level3.tscn" id="4_4kfpg"]
 [ext_resource type="AudioStream" uid="uid://cly33dh7niqm5" path="res://level.wav" id="4_uy8wu"]
+[ext_resource type="PackedScene" uid="uid://qv4hnr2yamay" path="res://Levels/Level4.tscn" id="5_10v8v"]
 [ext_resource type="AudioStream" uid="uid://dyelsjc4n422u" path="res://Won!.wav" id="5_v7u4x"]
+[ext_resource type="PackedScene" uid="uid://s1oy2jjmg1af" path="res://Levels/Level5.tscn" id="6_qjhfe"]
+[ext_resource type="PackedScene" uid="uid://cnh0men8y416e" path="res://Levels/Level6.tscn" id="7_0do1f"]
+[ext_resource type="PackedScene" uid="uid://d3whpbdf63hma" path="res://Levels/Level7.tscn" id="8_omsw8"]
+[ext_resource type="PackedScene" uid="uid://cjjevtcc564j2" path="res://Levels/Level8.tscn" id="9_arjjo"]
+[ext_resource type="PackedScene" uid="uid://8mjl28c4yim5" path="res://Levels/Level9.tscn" id="10_45ef0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_c3vh2"]
 font_size = 96
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0c3xc")
-scenes = Array[PackedScene]([ExtResource("2_ts7kf")])
+scenes = Array[PackedScene]([ExtResource("2_1avga"), ExtResource("3_k1p0b"), ExtResource("4_4kfpg"), ExtResource("5_10v8v"), ExtResource("6_qjhfe"), ExtResource("7_0do1f"), ExtResource("8_omsw8"), ExtResource("9_arjjo"), ExtResource("10_45ef0")])
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
