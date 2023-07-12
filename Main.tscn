@@ -72,6 +72,8 @@ text = "Play!"
 
 [node name="Theme" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_iiw4v")
+volume_db = -15.928
+autoplay = true
 
 [node name="Level" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_uy8wu")
